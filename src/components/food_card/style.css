@@ -1,3 +1,44 @@
+img {
+    width: 90%;
+    height: 90%;
+    border-radius: 30px;
+    box-shadow: 0px 0px 20px 0px rgba(45, 52, 54, 0.75);
+}
+
+button {
+    width: 64px;
+    height: 64px;
+    background-color: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1rem;
+    text-align: center;
+    box-shadow: 0px 0px 40px -20px rgba(45, 52, 54, 0.75);
+}
+
+button:hover,
+button:focus {
+    color: #fff;
+    outline: 0;
+}
+
+.move-left,
+.move-right {
+    -webkit-transition: -webkite-transform 1s ease-in-out;
+    transition: transform 1s ease-in-out;
+}
+
+.move-left {
+    -webkit-transform: -webkit-translate (1000px, 0px) -webskite-rotate(-20deg);
+    transform: translate(-1000px, 0px) rotate(20deg);
+}
+
+.move-right {
+    -webkit-transform: -webkit-translate (1000px, 0px) -webskite-rotate(-20deg);
+    transform: translate(1000px, 0px) rotate(20deg);
+}
+
 .food-card {
     background-color: white;
     width: 100%;
@@ -10,9 +51,28 @@
     margin: 0px 30px;
 }
 
-img {
-    width: 90%;
-    height: 90%;
-    border-radius: 30px;
-    box-shadow: 0px 0px 20px 0px rgba(45, 52, 54, 0.75);
+.btn-primary,
+.btn-danger {
+    border: 1px solid #4cd137;
+    background-color: #4cd137;
+}
+
+.btn-danger {
+    border: 1px solid #ea2027;
+    background-color: #ea2027;
+}
+
+.overlay-container {
+    position: relative;
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.image-screen {
+    position: absolute;
 }

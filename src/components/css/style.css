@@ -6,6 +6,7 @@
 body {
     background-color: #e17055;
     font-family: "Roboto", sans-serif;
+    overflow: hidden;
 }
 
 .p-h-100 {
@@ -42,14 +43,19 @@ body {
     margin-right: auto;
 }
 
-.flex-x {
+.center-x {
     display: flex;
     justify-content: center;
 }
 
-.flex-y {
+.center-y {
     display: flex;
     align-items: center;
+}
+
+.end-y {
+    display: flex;
+    align-items: flex-end;
 }
 
 .space-between {
