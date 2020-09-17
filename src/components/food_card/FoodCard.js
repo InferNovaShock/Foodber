@@ -45,11 +45,7 @@ export default class FoodCard extends React.Component {
             () =>
                 this.updateState(
                     "offScreenImage",
-                    this.getImage(
-                        index,
-                        `image-overlay move-${direction}`,
-                        () => console.log("your mom")
-                    )
+                    this.getImage(index, `image-overlay move-${direction}`)
                 ),
             delay
         );
