@@ -38,6 +38,18 @@ body {
     max-width: 1140px;
 }
 
+.row {
+    display: flex;
+}
+
+.col {
+    flex: 1;
+}
+
+.col-2 {
+    flex: 2;
+}
+
 .mx-auto {
     margin-left: auto;
     margin-right: auto;

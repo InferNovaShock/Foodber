@@ -4,80 +4,73 @@ import { getRequest } from "../api/FoodApi";
 import { SET_OFF_ANIMATION_DURATION } from "../Constant";
 import "./style.css";
 
-export default class FoodCard extends React.Component {
-    constructor(props) {
-        super(props);
+const image = (imageSrc, classes) => {
+    return <img src={imageSrc} className={classes} />;
+};
 
-        this.state = {
-            index: 0,
-            nextRecipePage: 0,
-            recipeCollection: "",
-            onScreenImage: "",
-            offScreenImage: "",
-        };
-    }
+export default class FoodCard extends React.Component {
+    state = {
+        index: 0,
+        nextRecipePage: 0,
+        recipeCollection: "",
+        onScreenImage: "",
+        offScreenImage: "",
+    };
 
     UNSAFE_componentWillMount = () => {
         getRequest(0)
-            .then(({ data }) =>
-                this.setState({
-                    recipeCollection: data.hits,
-                    onScreenImage: (
-                        <img
-                            src={data.hits[0].recipe.image}
-                            className="image-overlay"
-                        />
-                    ),
-                })
-            )
+            .then(({ data }) => {
+                this.updateState("recipeCollection", data.hits);
+                this.updateState(
+                    "onScreenImage",
+                    this.getImage(0, "image-overlay")
+                );
+            })
             .catch((error) => console.log(error));
     };
 
-    updateOffScreenImage = (index, direction, duration) => {
-        const { recipeCollection } = this.state;
+    updateState = (objectName, object, callback = () => {}) =>
+        this.setState({ [objectName]: object }, callback);
 
-        setTimeout(() => {
-            this.setState({
-                offScreenImage: (
-                    <img
-                        src={recipeCollection[index].recipe.image}
-                        className={`image-overlay move-${direction}`}
-                    />
+    timeOut = (method, delay) => setTimeout(method, delay);
+
+    getImage = (index, classes) => {
+        const { recipeCollection } = this.state;
+        const imageToDisplay = recipeCollection[index].recipe.image;
+        return image(imageToDisplay, classes);
+    };
+
+    updateOffScreenImage = (index, direction, delay) => {
+        this.timeOut(
+            () =>
+                this.updateState(
+                    "offScreenImage",
+                    this.getImage(
+                        index,
+                        `image-overlay move-${direction}`,
+                        () => console.log("your mom")
+                    )
                 ),
-            });
-        }, duration);
+            delay
+        );
     };
 
     swipe = (index, direction) => {
-        const { recipeCollection } = this.state;
-
-        this.setState(
-            {
-                onScreenImage: (
-                    <img
-                        src={recipeCollection[index + 1].recipe.image}
-                        className="image-overlay"
-                    />
-                ),
-                offScreenImage: (
-                    <img
-                        src={recipeCollection[index].recipe.image}
-                        className="image-overlay"
-                    />
-                ),
-            },
-            this.updateOffScreenImage(
-                index,
-                direction,
-                SET_OFF_ANIMATION_DURATION
-            )
+        this.updateState(
+            "offScreenImage",
+            this.getImage(index, "image-overlay")
         );
+        this.updateState(
+            "onScreenImage",
+            this.getImage(index + 1, "image-overlay")
+        );
+        this.updateOffScreenImage(index, direction, SET_OFF_ANIMATION_DURATION);
     };
 
     nextRecipe = (event) => {
         const { index } = this.state;
         this.swipe(index, event.target.name);
-        this.setState({ index: index + 1 });
+        this.updateState("index", index + 1);
     };
 
     render = () => {
