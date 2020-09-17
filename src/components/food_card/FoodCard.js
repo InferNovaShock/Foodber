@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import NavBar from "../nav_bar/NavBar";
 import { getRequest } from "../api/FoodApi";
 import { SET_OFF_ANIMATION_DURATION } from "../Constant";
@@ -72,7 +73,7 @@ export default class FoodCard extends React.Component {
     render = () => {
         const { onScreenImage, offScreenImage } = this.state;
         return (
-            <div className="food-card">
+            <div className="p-h-100">
                 <div className="center-y">
                     <NavBar />
                 </div>
