@@ -8,6 +8,7 @@ const initalState = {
 export default (state = initalState, action) => {
     switch (action.type) {
         case ADD_RECIPE:
+            console.log(action.payload);
             return {
                 ...state,
                 items: [...state.items, action.payload],

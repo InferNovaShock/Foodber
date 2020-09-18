@@ -1,15 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
-import NavBar from "../nav_bar/NavBar";
+import { addRecipe } from "../redux/actions/RecipeAction";
 import { getRequest } from "../api/FoodApi";
 import { SET_OFF_ANIMATION_DURATION } from "../Constant";
+import NavBar from "../nav_bar/NavBar";
 import "./style.css";
 
 const image = (imageSrc, classes) => {
     return <img src={imageSrc} className={classes} />;
 };
 
-export default class FoodCard extends React.Component {
+class FoodCard extends React.Component {
     state = {
         index: 0,
         nextRecipePage: 0,
@@ -30,10 +31,18 @@ export default class FoodCard extends React.Component {
             .catch((error) => console.log(error));
     };
 
-    updateState = (objectName, object, callback = () => {}) =>
-        this.setState({ [objectName]: object }, callback);
+    updateState = (propertyName, property, callback = () => {}) =>
+        this.setState({ [propertyName]: property }, callback);
 
     timeOut = (method, delay) => setTimeout(method, delay);
+
+    addRecipeToMenu = (direction) => {
+        if (direction === "left") {
+            const { recipeCollection, index } = this.state;
+            const { addRecipe } = this.props;
+            addRecipe(recipeCollection[index].recipe);
+        }
+    };
 
     getImage = (index, classes) => {
         const { recipeCollection } = this.state;
@@ -61,6 +70,7 @@ export default class FoodCard extends React.Component {
             "onScreenImage",
             this.getImage(index + 1, "image-overlay")
         );
+        this.addRecipeToMenu(direction);
         this.updateOffScreenImage(index, direction, SET_OFF_ANIMATION_DURATION);
     };
 
@@ -99,3 +109,5 @@ export default class FoodCard extends React.Component {
         );
     };
 }
+
+export default connect(null, { addRecipe })(FoodCard);
