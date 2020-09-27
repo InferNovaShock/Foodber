@@ -1,3 +1,53 @@
-.menu {
-    box-shadow: 0px 0px 80px -15px rgba(0, 0, 0, 0.75);
+.menu-navbar {
+    color: #fff;
+    font-family: "Dancing Script", cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+    box-shadow: 0 1px 8px 0 rgba(0, 17, 25, 0.27);
+    background: linear-gradient(-45deg, #e17055, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 60s infinite;
+    animation-direction: alternate;
+}
+
+.match-recipes {
+    display: flex;
+    height: 4rem;
+    font-weight: bold;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.match-recipes:hover {
+    box-shadow: 0 0px 10px 0 rgba(136, 136, 136, 0.3);
+}
+
+.avatar {
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.scroll {
+    overflow: auto;
+    height: 100%;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }

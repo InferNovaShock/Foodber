@@ -8,8 +8,8 @@ import "./components/css/style.css";
 const App = () => {
     return (
         <Provider store={Store}>
-            <div className="foodber">
-                <div className="recipes-list">
+            <div className="h-100 center-x">
+                <div className="menu">
                     <Menu />
                 </div>
                 <div className="food-card">

@@ -25,6 +25,10 @@ class FoodCard extends React.Component {
                 this.updateState("recipeCollection", data.hits);
                 this.updateState(
                     "onScreenImage",
+                    this.getImage(1, "image-overlay")
+                );
+                this.updateState(
+                    "offScreenImage",
                     this.getImage(0, "image-overlay")
                 );
             })
@@ -37,7 +41,7 @@ class FoodCard extends React.Component {
     timeOut = (method, delay) => setTimeout(method, delay);
 
     addRecipeToMenu = (direction) => {
-        if (direction === "left") {
+        if (direction === "right") {
             const { recipeCollection, index } = this.state;
             const { addRecipe } = this.props;
             addRecipe(recipeCollection[index].recipe);
@@ -51,63 +55,100 @@ class FoodCard extends React.Component {
     };
 
     updateOffScreenImage = (index, direction, delay) => {
-        this.timeOut(
-            () =>
-                this.updateState(
-                    "offScreenImage",
-                    this.getImage(index, `image-overlay move-${direction}`)
-                ),
-            delay
-        );
+        this.timeOut(() => {
+            this.updateState(
+                "offScreenImage",
+                this.getImage(index, `image-overlay move-${direction}`)
+            );
+        }, delay);
     };
 
     swipe = (index, direction) => {
         this.updateState(
-            "offScreenImage",
-            this.getImage(index, "image-overlay")
-        );
-        this.updateState(
             "onScreenImage",
             this.getImage(index + 1, "image-overlay")
+        );
+        this.updateState(
+            "offScreenImage",
+            this.getImage(index, "image-overlay")
         );
         this.addRecipeToMenu(direction);
         this.updateOffScreenImage(index, direction, SET_OFF_ANIMATION_DURATION);
     };
 
     nextRecipe = (event) => {
+        event.stopPropagation();
         const { index } = this.state;
-        this.swipe(index, event.target.name);
+        this.swipe(index, event.target.attributes[0].nodeValue);
         this.updateState("index", index + 1);
     };
 
     render = () => {
         const { onScreenImage, offScreenImage } = this.state;
         return (
-            <div className="p-h-100">
-                <div className="center-y">
-                    <NavBar />
+            <div className="mt-1">
+                <div className="images">
+                    {onScreenImage}
+                    {offScreenImage}
                 </div>
-                <div className="food-card-content p-h-80">
-                    <div className="overlay-container p-h-80 center-x center-y">
-                        {onScreenImage}
-                        {offScreenImage}
-                        <div className="space-between image-overlay">
-                            <button
-                                name="left"
-                                onClick={this.nextRecipe}
-                                className="btn-primary"
-                            ></button>
-                            <button
-                                name="right"
-                                onClick={this.nextRecipe}
-                                className="btn-danger"
-                            ></button>
-                        </div>
-                    </div>
+                <div className="mt-1 icons-nav">
+                    <button>
+                        <span icon="replay" className="material-icons icons">
+                            replay
+                        </span>
+                    </button>
+                    <button name="left" onClick={this.nextRecipe}>
+                        <span
+                            name="left"
+                            icon="close"
+                            className="material-icons icons"
+                            onClick={this.nextRecipe}
+                        >
+                            close
+                        </span>
+                    </button>
+                    <button>
+                        <span icon="star" className="material-icons icons">
+                            star
+                        </span>
+                    </button>
+                    <button name="right" onClick={this.nextRecipe}>
+                        <span
+                            name="right"
+                            icon="favorite"
+                            className="material-icons icons"
+                            onClick={this.nextRecipe}
+                        >
+                            favorite
+                        </span>
+                    </button>
+                    <button>
+                        <span icon="flash_on" className="material-icons icons">
+                            flash_on
+                        </span>
+                    </button>
                 </div>
             </div>
         );
     };
 }
+
+/*
+
+   {onScreenImage}
+                {offScreenImage}
+                <div className="space-between image-overlay">
+                    <button
+                        name="left"
+                        onClick={this.nextRecipe}
+                        className="btn-primary"
+                    ></button>
+                    <button
+                        name="right"
+                        onClick={this.nextRecipe}
+                        className="btn-danger"
+                    ></button>
+                </div>
+*/
 
 export default connect(null, { addRecipe })(FoodCard);
