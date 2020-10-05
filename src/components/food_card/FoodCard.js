@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { addRecipe } from "../redux/actions/RecipeAction";
 import { getRequest } from "../api/FoodApi";
 import { SET_OFF_ANIMATION_DURATION } from "../Constant";
-import NavBar from "../nav_bar/NavBar";
 import "./style.css";
 
 const image = (imageSrc, classes) => {
@@ -83,7 +82,7 @@ class FoodCard extends React.Component {
         this.updateState("index", index + 1);
     };
 
-    render = () => {
+    renderFoodCard = () => {
         const { onScreenImage, offScreenImage } = this.state;
         return (
             <div className="mt-1">
@@ -131,24 +130,10 @@ class FoodCard extends React.Component {
             </div>
         );
     };
+
+    render = () => {
+        return this.renderFoodCard();
+    };
 }
-
-/*
-
-   {onScreenImage}
-                {offScreenImage}
-                <div className="space-between image-overlay">
-                    <button
-                        name="left"
-                        onClick={this.nextRecipe}
-                        className="btn-primary"
-                    ></button>
-                    <button
-                        name="right"
-                        onClick={this.nextRecipe}
-                        className="btn-danger"
-                    ></button>
-                </div>
-*/
 
 export default connect(null, { addRecipe })(FoodCard);

@@ -1,4 +1,4 @@
-.menu-navbar {
+.menu-logo {
     color: #fff;
     font-family: "Dancing Script", cursive;
     display: flex;
@@ -12,19 +12,44 @@
     animation-direction: alternate;
 }
 
+.menu-navbar {
+    display: flex;
+    margin-top: 2rem;
+    justify-content: space-around;
+}
+
+.match-recipes-list {
+    margin-top: 1rem;
+    height: 80%;
+    overflow: auto;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.match-recipes:first-child {
+    margin-top: 1rem;
+}
+
 .match-recipes {
+    transition: box-shadow 1s ease-in-out;
     display: flex;
     height: 4rem;
-    font-weight: bold;
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
     cursor: pointer;
 }
 
+.match-recipes:last-child {
+    margin-bottom: 1rem;
+}
+
 .match-recipes:hover {
+    transition: box-shadow 0.5s ease-in-out;
     box-shadow: 0 0px 10px 0 rgba(136, 136, 136, 0.3);
+}
+
+.match-recipes > h3 {
+    font-weight: 400;
 }
 
 .avatar {
@@ -35,9 +60,21 @@
     margin-right: 1rem;
 }
 
-.scroll {
-    overflow: auto;
-    height: 100%;
+.menu-button {
+    transition: border-bottom 0.5s ease-in-out;
+    font-size: 1rem;
+    font-weight: bold;
+    padding-bottom: 0.2rem;
+    background-color: transparent;
+    border: 2px solid transparent;
+    color: black;
+    cursor: pointer;
+}
+
+.menu-button:hover {
+    transition: border-bottom 0.5s ease-in-out;
+    color: black;
+    border-bottom: 2px solid #e17055;
 }
 
 @keyframes gradient {

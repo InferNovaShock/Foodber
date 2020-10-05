@@ -1,34 +1,41 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import "./style.css";
 
-const createMenu = (recipes) => (
-    <div className="scroll">
-        {recipes.map((recipe, key) => (
-            <div key={key} className="match-recipes">
-                <img className="avatar" src={recipe.image} />
-                <h3>{recipe.label}</h3>
-            </div>
-        ))}
-    </div>
-);
-
 class Menu extends React.Component {
+    createMenu = (recipes) => {
+        return (
+            <div className="match-recipes-list">
+                {recipes.map((recipe, key) => (
+                    <Link
+                        key={key}
+                        to={`/${recipe.label
+                            .replaceAll(" ", "-")
+                            .toLowerCase()}`}
+                    >
+                        <div className="match-recipes">
+                            <img className="avatar" src={recipe.image} />
+                            <h3>{recipe.label}</h3>
+                        </div>
+                    </Link>
+                ))}
+            </div>
+        );
+    };
+
     render = () => {
         const { recipes } = this.props;
-        let recipesMenu;
-        if (recipes.length > 0) {
-            console.log(recipes);
-            recipesMenu = createMenu(recipes);
-        }
+        const recipesMenu = recipes.length > 0 ? this.createMenu(recipes) : "";
+
         return (
             <div className="menu">
-                <div className="menu-navbar">
+                <div className="menu-logo">
                     <h1>Foodber</h1>
                 </div>
-                <div>
-                    <button>Matched Food</button>
-                    <button>Favorites</button>
+                <div className="menu-navbar">
+                    <button className="menu-button">Matches</button>
+                    <button className="menu-button">Favorites</button>
                 </div>
                 {recipesMenu}
             </div>

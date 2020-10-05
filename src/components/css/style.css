@@ -15,10 +15,6 @@ body {
     overflow: hidden;
 }
 
-button {
-    color: black;
-}
-
 .food-card {
     height: 400px;
 }
@@ -99,12 +95,21 @@ button {
     justify-content: space-between;
 }
 
+.space-around {
+    display: flex;
+    justify-content: space-around;
+}
+
 .relative {
     position: relative;
 }
 
 .mt-1 {
     margin-top: 1rem;
+}
+
+.ml-1 {
+    margin-left: 1rem;
 }
 
 @media only screen and (min-width: 1140px) {
