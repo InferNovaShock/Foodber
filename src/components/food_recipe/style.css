@@ -21,3 +21,56 @@
     height: 64px;
     border-radius: 50%;
 }
+
+.message-container {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.message-box-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+}
+
+.message-box {
+    height: calc(100% - 8rem);
+}
+
+.message-box-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+}
+
+.message-box-input textarea {
+    font-family: "Roboto", sans-serif;
+    flex: 1;
+    height: 80%;
+    background-color: transparent;
+    border: 1px solid transparent;
+    overflow: hidden;
+    resize: none;
+}
+
+.send-btn {
+    width: 6rem;
+    height: 70%;
+    border: 1px solid transparent;
+    border-radius: 4rem;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.5);
+    background: linear-gradient(-45deg, #e17055, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    animation: gradient 60s infinite;
+    animation-direction: alternate;
+}
+
+.send-btn:active {
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.27);
+}

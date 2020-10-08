@@ -35,7 +35,7 @@ class Menu extends React.Component {
                 </div>
                 <div className="menu-navbar">
                     <button className="menu-button">Matches</button>
-                    <button className="menu-button">Favorites</button>
+                    <button className="menu-button">Settings</button>
                 </div>
                 {recipesMenu}
             </div>

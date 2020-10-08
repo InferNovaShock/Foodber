@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import "./style.css";
 
@@ -25,35 +25,76 @@ const ingredientList = (recipe) => (
 );
 
 class FoodRecipe extends React.Component {
-    messageBox = () => {
-        return <div className="p-h-100">This is the message box</div>;
+    state = {
+        recipe: "",
     };
 
-    recipeProfile = () => {
+    UNSAFE_componentWillMount = () => {
         const { recipes } = this.props;
+
+        if (recipes.length <= 0) {
+            return <Redirect to="/page-not-found" />;
+        }
+
         const index = this.findRecipeIndex(
             window.location.pathname.substring(1)
         );
+        console.log(recipes[index]);
+        this.setState({ recipe: recipes[index] });
+    };
+
+    deleteRecipe = () => {};
+
+    messageBox = () => {
+        const { recipe } = this.state;
+
+        return (
+            <div className="p-h-100 message-container">
+                <div className="message-box-nav">
+                    <h4>{recipe.label}</h4>
+                    <button className="send-btn">UNMATCH</button>
+                    <Link to="/" className="exit-btn">
+                        X
+                    </Link>
+                </div>
+                <div className="message-box">
+                    This is where messages are shown
+                </div>
+                <div className="message-box-input">
+                    <textarea
+                        type="text"
+                        placeholder={"\n Type in a message"}
+                        className="p-h-10"
+                        maxLength="5000"
+                    ></textarea>
+                    <button className="send-btn">SEND</button>
+                </div>
+            </div>
+        );
+    };
+
+    recipeProfile = () => {
+        const { recipe } = this.state;
 
         return (
             <div className="p-h-100">
                 <div className="food-recipe-container">
                     <div className="food-recipe-name">
                         <img
-                            src={recipes[index].image}
+                            src={recipe.image}
+                            alt={recipe.label}
                             className="food-recipe-img"
                         />
-                        <h2 className="mt-1">{recipes[index].label}</h2>
-                        <h3 className="mt-1">{recipes[index].label}</h3>
+                        <h2 className="mt-1">{recipe.label}</h2>
+                        <h3 className="mt-1">{recipe.label}</h3>
                     </div>
-                    {ingredientList(recipes[index])}
+                    {ingredientList(recipe)}
                 </div>
             </div>
         );
     };
 
     findRecipeIndex = (recipeName) => {
-        console.log(recipeName);
         const { recipes } = this.props;
         const recipeIndex = recipes.findIndex((recipe) => {
             return (
@@ -65,12 +106,6 @@ class FoodRecipe extends React.Component {
     };
 
     render = () => {
-        const { recipes } = this.props;
-
-        if (recipes.length <= 0) {
-            return <Redirect to="/page-not-found" />;
-        }
-
         return (
             <div className="h-100 row">
                 <div className="col-2">{this.messageBox()}</div>
