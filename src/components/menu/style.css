@@ -45,19 +45,11 @@
 
 .match-recipes:hover {
     transition: box-shadow 0.5s ease-in-out;
-    box-shadow: 0 0px 10px 0 rgba(136, 136, 136, 0.3);
+    box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.1);
 }
 
 .match-recipes > h3 {
     font-weight: 400;
-}
-
-.avatar {
-    width: 74px;
-    height: 74px;
-    border-radius: 50%;
-    margin-left: 1rem;
-    margin-right: 1rem;
 }
 
 .menu-button {
@@ -75,16 +67,4 @@
     transition: border-bottom 0.5s ease-in-out;
     color: black;
     border-bottom: 2px solid #e17055;
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
 }

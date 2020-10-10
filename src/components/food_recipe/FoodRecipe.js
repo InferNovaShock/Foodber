@@ -7,16 +7,18 @@ const ingredientList = (recipe) => (
     <div>
         {recipe.ingredients.map((ingredient, key) => (
             <div key={key}>
-                <div className="mt-1">
-                    <div className="">
+                <div className="mt-1 ingredient-content">
+                    <div className="ml-1">
                         <img
                             className="ingredient-img"
                             src={ingredient.image}
                         />
                     </div>
-                    <div className="">
-                        <h3>{ingredient.text}</h3>
-                        <h3>{ingredient.weight}</h3>
+                    <div className="ml-1 mr-1">
+                        <h3 className="mt-1">{ingredient.text}</h3>
+                        <h4 className="mt-05">
+                            {Math.round(ingredient.weight) + "g"}
+                        </h4>
                     </div>
                 </div>
             </div>
@@ -24,9 +26,20 @@ const ingredientList = (recipe) => (
     </div>
 );
 
+const addMessage = (message) => {
+    return (
+        <div className="mt-1">
+            <h6>You</h6>
+            <span className="message">{message}</span>
+        </div>
+    );
+};
+
 class FoodRecipe extends React.Component {
     state = {
         recipe: "",
+        message: "",
+        messages: [],
     };
 
     UNSAFE_componentWillMount = () => {
@@ -43,10 +56,36 @@ class FoodRecipe extends React.Component {
         this.setState({ recipe: recipes[index] });
     };
 
+    messageChange = (event) => {
+        console.log(event);
+        if (event.target.key === "Enter") {
+            this.sendMessage();
+            event.preventDefault();
+            console.log(event.target.key);
+        }
+
+        this.setState({
+            [event.target.name]: event.target.value,
+        });
+    };
+
+    sendMessage = () => {
+        const { message, messages } = this.state;
+
+        if (message.length <= 0) {
+            return;
+        }
+
+        this.setState({
+            messages: [...messages, addMessage(message)],
+            message: "",
+        });
+    };
+
     deleteRecipe = () => {};
 
     messageBox = () => {
-        const { recipe } = this.state;
+        const { recipe, messages } = this.state;
 
         return (
             <div className="p-h-100 message-container">
@@ -57,17 +96,20 @@ class FoodRecipe extends React.Component {
                         X
                     </Link>
                 </div>
-                <div className="message-box">
-                    This is where messages are shown
-                </div>
+                <div className="message-box">{messages}</div>
                 <div className="message-box-input">
                     <textarea
+                        name="message"
                         type="text"
-                        placeholder={"\n Type in a message"}
+                        placeholder={"Type in a message"}
                         className="p-h-10"
                         maxLength="5000"
+                        onChange={this.messageChange}
+                        value={this.state.message}
                     ></textarea>
-                    <button className="send-btn">SEND</button>
+                    <button className="send-btn" onClick={this.sendMessage}>
+                        SEND
+                    </button>
                 </div>
             </div>
         );
@@ -86,7 +128,6 @@ class FoodRecipe extends React.Component {
                             className="food-recipe-img"
                         />
                         <h2 className="mt-1">{recipe.label}</h2>
-                        <h3 className="mt-1">{recipe.label}</h3>
                     </div>
                     {ingredientList(recipe)}
                 </div>
@@ -109,7 +150,7 @@ class FoodRecipe extends React.Component {
         return (
             <div className="h-100 row">
                 <div className="col-2">{this.messageBox()}</div>
-                <div className="col">{this.recipeProfile()}</div>
+                <div className="col ">{this.recipeProfile()}</div>
             </div>
         );
     };
