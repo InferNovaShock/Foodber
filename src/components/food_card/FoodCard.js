@@ -1,47 +1,53 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addRecipe } from "../redux/actions/RecipeAction";
+import { addRecipe, updateIndex } from "../redux/actions/RecipeAction";
 import { getRequest } from "../api/FoodApi";
 import { SET_OFF_ANIMATION_DURATION } from "../Constant";
 import "./style.css";
 
-const image = (imageSrc, classes) => {
-    return <img src={imageSrc} className={classes} />;
+const image = (imageSrc, classes, transitionEnd) => {
+    return (
+        <img
+            src={imageSrc}
+            className={classes}
+            onTransitionEnd={transitionEnd}
+        />
+    );
 };
 
 class FoodCard extends React.Component {
     state = {
-        index: 0,
         nextRecipePage: 0,
         recipeCollection: "",
         onScreenImage: "",
         offScreenImage: "",
+        finished: true,
     };
 
     UNSAFE_componentWillMount = () => {
+        const { index } = this.props;
+
         getRequest(0)
             .then(({ data }) => {
-                this.updateState("recipeCollection", data.hits);
-                this.updateState(
-                    "onScreenImage",
-                    this.getImage(1, "image-overlay")
-                );
-                this.updateState(
-                    "offScreenImage",
-                    this.getImage(0, "image-overlay")
-                );
+                this.setState({
+                    recipeCollection: data.hits,
+                });
+
+                this.setState({
+                    onScreenImage: this.getImage(index + 1, "image-overlay"),
+                    offScreenImage: this.getImage(index, "image-overlay"),
+                });
             })
             .catch((error) => console.log(error));
     };
 
-    updateState = (propertyName, property, callback = () => {}) =>
-        this.setState({ [propertyName]: property }, callback);
+    transitionEnd = () => {
+        this.setState({ finished: true });
+    };
 
-    timeOut = (method, delay) => setTimeout(method, delay);
-
-    addRecipeToMenu = (direction) => {
+    addRecipeToMenu = (index, direction) => {
         if (direction === "right") {
-            const { recipeCollection, index } = this.state;
+            const { recipeCollection } = this.state;
             const { addRecipe } = this.props;
             addRecipe(recipeCollection[index].recipe);
         }
@@ -50,36 +56,58 @@ class FoodCard extends React.Component {
     getImage = (index, classes) => {
         const { recipeCollection } = this.state;
         const imageToDisplay = recipeCollection[index].recipe.image;
-        return image(imageToDisplay, classes);
+        return image(imageToDisplay, classes, this.transitionEnd);
     };
 
     updateOffScreenImage = (index, direction, delay) => {
-        this.timeOut(() => {
-            this.updateState(
-                "offScreenImage",
-                this.getImage(index, `image-overlay move-${direction}`)
-            );
+        setTimeout(() => {
+            this.setState({
+                offScreenImage: this.getImage(
+                    index,
+                    `image-overlay move-${direction}`
+                ),
+            });
         }, delay);
     };
 
     swipe = (index, direction) => {
-        this.updateState(
-            "onScreenImage",
-            this.getImage(index + 1, "image-overlay")
-        );
-        this.updateState(
-            "offScreenImage",
-            this.getImage(index, "image-overlay")
-        );
-        this.addRecipeToMenu(direction);
+        this.setState({
+            onScreenImage: this.getImage(index + 1, "image-overlay"),
+            offScreenImage: this.getImage(index, "image-overlay"),
+        });
+
+        this.addRecipeToMenu(index, direction);
         this.updateOffScreenImage(index, direction, SET_OFF_ANIMATION_DURATION);
     };
 
     nextRecipe = (event) => {
         event.stopPropagation();
-        const { index } = this.state;
-        this.swipe(index, event.target.attributes[0].nodeValue);
-        this.updateState("index", index + 1);
+        const { index, updateIndex } = this.props;
+        const { finished, recipeCollection } = this.state;
+        console.log(recipeCollection);
+        if (finished && index < recipeCollection.length) {
+            if (index !== 0 && index % 5 === 0) {
+                const copyRecipeCollection = [...recipeCollection];
+                getRequest(index + 6)
+                    .then(({ data }) => {
+                        this.setState({
+                            recipeCollection: [
+                                ...copyRecipeCollection.splice(
+                                    index,
+                                    copyRecipeCollection.length
+                                ),
+                                ...data.hits,
+                            ],
+                        });
+                    })
+                    .catch((error) => console.log(error));
+                updateIndex(0);
+            } else {
+                this.setState({ finished: false });
+                this.swipe(index, event.target.attributes[0].nodeValue);
+                updateIndex(index + 1);
+            }
+        }
     };
 
     renderFoodCard = () => {
@@ -136,4 +164,8 @@ class FoodCard extends React.Component {
     };
 }
 
-export default connect(null, { addRecipe })(FoodCard);
+const mapStateToProps = (state) => ({
+    index: state.recipes.index,
+});
+
+export default connect(mapStateToProps, { addRecipe, updateIndex })(FoodCard);

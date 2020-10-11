@@ -1,4 +1,9 @@
-import { ADD_RECIPE, REMOVE_RECIPE, OPEN_RECIPE } from "./Types";
+import {
+    ADD_RECIPE,
+    REMOVE_RECIPE,
+    OPEN_RECIPE,
+    UPDATE_CURRENT_INDEX,
+} from "./Types";
 
 export const addRecipe = (recipe) => (dispatch) => {
     dispatch({
@@ -7,10 +12,10 @@ export const addRecipe = (recipe) => (dispatch) => {
     });
 };
 
-export const removeRecipe = (recipe) => (dispatch) => {
+export const removeRecipe = (index) => (dispatch) => {
     dispatch({
         type: REMOVE_RECIPE,
-        payload: recipe,
+        payload: index,
     });
 };
 
@@ -18,5 +23,12 @@ export const openRecipe = (recipe) => (dispatch) => {
     dispatch({
         type: OPEN_RECIPE,
         payload: recipe,
+    });
+};
+
+export const updateIndex = (index) => (dispatch) => {
+    dispatch({
+        type: UPDATE_CURRENT_INDEX,
+        payload: index,
     });
 };

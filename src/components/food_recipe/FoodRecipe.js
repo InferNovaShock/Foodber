@@ -1,6 +1,7 @@
 import React from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { removeRecipe } from "../redux/actions/RecipeAction";
 import "./style.css";
 
 const ingredientList = (recipe) => (
@@ -40,30 +41,33 @@ class FoodRecipe extends React.Component {
         recipe: "",
         message: "",
         messages: [],
+        index: -1,
     };
 
     UNSAFE_componentWillMount = () => {
-        const { recipes } = this.props;
+        const { recipes, history, location } = this.props;
+        console.log(recipes);
 
         if (recipes.length <= 0) {
-            return <Redirect to="/page-not-found" />;
+            history.push("/");
         }
 
-        const index = this.findRecipeIndex(
-            window.location.pathname.substring(1)
-        );
-        console.log(recipes[index]);
-        this.setState({ recipe: recipes[index] });
+        const index = this.findRecipeIndex(location.pathname.substring(1));
+        this.setState({ recipe: recipes[index], index: index });
+    };
+
+    UNSAFE_componentWillReceiveProps = (props) => {
+        const { recipes, location } = this.props;
+
+        if (props.location.pathname !== location.pathname) {
+            const index = this.findRecipeIndex(
+                props.location.pathname.substring(1)
+            );
+            this.setState({ recipe: recipes[index], index: index });
+        }
     };
 
     messageChange = (event) => {
-        console.log(event);
-        if (event.target.key === "Enter") {
-            this.sendMessage();
-            event.preventDefault();
-            console.log(event.target.key);
-        }
-
         this.setState({
             [event.target.name]: event.target.value,
         });
@@ -82,18 +86,37 @@ class FoodRecipe extends React.Component {
         });
     };
 
-    deleteRecipe = () => {};
+    keyClick = (event) => {
+        if (event.key === "Enter") {
+            this.sendMessage();
+            event.preventDefault();
+        }
+    };
+
+    unmatchRecipe = () => {
+        const { removeRecipe, history } = this.props;
+        const { index } = this.state;
+        removeRecipe(index);
+        history.push("/");
+    };
 
     messageBox = () => {
+        const { history } = this.props;
         const { recipe, messages } = this.state;
+
+        if (typeof recipe === "undefined") {
+            history.push("/");
+        }
 
         return (
             <div className="p-h-100 message-container">
                 <div className="message-box-nav">
                     <h4>{recipe.label}</h4>
-                    <button className="send-btn">UNMATCH</button>
+                    <button className="send-btn" onClick={this.unmatchRecipe}>
+                        UNMATCH
+                    </button>
                     <Link to="/" className="exit-btn">
-                        X
+                        <span className="material-icons">close</span>
                     </Link>
                 </div>
                 <div className="message-box">{messages}</div>
@@ -105,6 +128,7 @@ class FoodRecipe extends React.Component {
                         className="p-h-10"
                         maxLength="5000"
                         onChange={this.messageChange}
+                        onKeyDown={this.keyClick}
                         value={this.state.message}
                     ></textarea>
                     <button className="send-btn" onClick={this.sendMessage}>
@@ -136,12 +160,16 @@ class FoodRecipe extends React.Component {
     };
 
     findRecipeIndex = (recipeName) => {
-        const { recipes } = this.props;
+        const { recipes, history } = this.props;
         const recipeIndex = recipes.findIndex((recipe) => {
             return (
                 recipe.label.replaceAll(" ", "-").toLowerCase() === recipeName
             );
         });
+
+        if (recipeIndex < 0) {
+            history.push("/");
+        }
 
         return recipeIndex;
     };
@@ -160,4 +188,4 @@ const mapStateToProps = (state) => ({
     recipes: state.recipes.items,
 });
 
-export default connect(mapStateToProps)(FoodRecipe);
+export default connect(mapStateToProps, { removeRecipe })(FoodRecipe);

@@ -22,12 +22,12 @@ const App = () => {
                                 <FoodCard />
                             </div>
                         </Route>
-                        <Route exact path="/page-not-found">
-                            <PageNotFound />
-                        </Route>
-                        <Route path="/:url">
-                            <FoodRecipe />
-                        </Route>
+                        <Route
+                            exact
+                            path="/page-not-found"
+                            component={PageNotFound}
+                        />
+                        <Route path="/:url" component={FoodRecipe} />
                     </Switch>
                 </div>
             </Router>
