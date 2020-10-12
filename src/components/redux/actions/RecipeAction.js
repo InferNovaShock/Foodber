@@ -3,6 +3,7 @@ import {
     REMOVE_RECIPE,
     OPEN_RECIPE,
     UPDATE_CURRENT_INDEX,
+    UPDATE_COLLECTION,
 } from "./Types";
 
 export const addRecipe = (recipe) => (dispatch) => {
@@ -30,5 +31,12 @@ export const updateIndex = (index) => (dispatch) => {
     dispatch({
         type: UPDATE_CURRENT_INDEX,
         payload: index,
+    });
+};
+
+export const updateRecipeCollection = (recipes) => (dispatch) => {
+    dispatch({
+        type: UPDATE_COLLECTION,
+        payload: recipes,
     });
 };

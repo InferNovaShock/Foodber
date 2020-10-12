@@ -65,6 +65,9 @@
 
 .menu-button:hover {
     transition: border-bottom 0.5s ease-in-out;
-    color: black;
+    border-bottom: 2px solid #e17055;
+}
+
+.active {
     border-bottom: 2px solid #e17055;
 }

@@ -1,6 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addRecipe, updateIndex } from "../redux/actions/RecipeAction";
+import {
+    addRecipe,
+    updateIndex,
+    updateRecipeCollection,
+} from "../redux/actions/RecipeAction";
 import { getRequest } from "../api/FoodApi";
 import { SET_OFF_ANIMATION_DURATION } from "../Constant";
 import "./style.css";
@@ -17,28 +21,33 @@ const image = (imageSrc, classes, transitionEnd) => {
 
 class FoodCard extends React.Component {
     state = {
-        nextRecipePage: 0,
-        recipeCollection: "",
         onScreenImage: "",
         offScreenImage: "",
         finished: true,
     };
 
     UNSAFE_componentWillMount = () => {
-        const { index } = this.props;
+        const { index, updateRecipeCollection, recipeCollection } = this.props;
 
-        getRequest(0)
-            .then(({ data }) => {
-                this.setState({
-                    recipeCollection: data.hits,
-                });
-
-                this.setState({
-                    onScreenImage: this.getImage(index + 1, "image-overlay"),
-                    offScreenImage: this.getImage(index, "image-overlay"),
-                });
-            })
-            .catch((error) => console.log(error));
+        if (recipeCollection.length <= 0) {
+            getRequest(0)
+                .then(({ data }) => {
+                    updateRecipeCollection(data.hits);
+                    this.setState({
+                        onScreenImage: this.getImage(
+                            index + 1,
+                            "image-overlay"
+                        ),
+                        offScreenImage: this.getImage(index, "image-overlay"),
+                    });
+                })
+                .catch((error) => console.log(error));
+        } else {
+            this.setState({
+                onScreenImage: this.getImage(index + 1, "image-overlay"),
+                offScreenImage: this.getImage(index, "image-overlay"),
+            });
+        }
     };
 
     transitionEnd = () => {
@@ -47,14 +56,13 @@ class FoodCard extends React.Component {
 
     addRecipeToMenu = (index, direction) => {
         if (direction === "right") {
-            const { recipeCollection } = this.state;
-            const { addRecipe } = this.props;
+            const { addRecipe, recipeCollection } = this.props;
             addRecipe(recipeCollection[index].recipe);
         }
     };
 
     getImage = (index, classes) => {
-        const { recipeCollection } = this.state;
+        const { recipeCollection } = this.props;
         const imageToDisplay = recipeCollection[index].recipe.image;
         return image(imageToDisplay, classes, this.transitionEnd);
     };
@@ -82,23 +90,25 @@ class FoodCard extends React.Component {
 
     nextRecipe = (event) => {
         event.stopPropagation();
-        const { index, updateIndex } = this.props;
-        const { finished, recipeCollection } = this.state;
-        console.log(recipeCollection);
+        const { finished } = this.state;
+        const {
+            index,
+            updateIndex,
+            updateRecipeCollection,
+            recipeCollection,
+        } = this.props;
         if (finished && index < recipeCollection.length) {
             if (index !== 0 && index % 5 === 0) {
                 const copyRecipeCollection = [...recipeCollection];
                 getRequest(index + 6)
                     .then(({ data }) => {
-                        this.setState({
-                            recipeCollection: [
-                                ...copyRecipeCollection.splice(
-                                    index,
-                                    copyRecipeCollection.length
-                                ),
-                                ...data.hits,
-                            ],
-                        });
+                        updateRecipeCollection([
+                            ...copyRecipeCollection.splice(
+                                index,
+                                copyRecipeCollection.length
+                            ),
+                            ...data.hits,
+                        ]);
                     })
                     .catch((error) => console.log(error));
                 updateIndex(0);
@@ -166,6 +176,11 @@ class FoodCard extends React.Component {
 
 const mapStateToProps = (state) => ({
     index: state.recipes.index,
+    recipeCollection: state.recipes.recipeCollection,
 });
 
-export default connect(mapStateToProps, { addRecipe, updateIndex })(FoodCard);
+export default connect(mapStateToProps, {
+    addRecipe,
+    updateIndex,
+    updateRecipeCollection,
+})(FoodCard);

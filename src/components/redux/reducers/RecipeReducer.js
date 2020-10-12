@@ -23,9 +23,19 @@ export default (state = initalState, action) => {
         case UPDATE_COLLECTION:
             return {
                 ...state,
-                recipeCollection: [action.payload],
+                recipeCollection: action.payload,
             };
         case ADD_RECIPE:
+            const recipeIndex = state.items.findIndex((recipe) => {
+                return action.payload.label === recipe.label;
+            });
+
+            if (recipeIndex > -1) {
+                return {
+                    ...state,
+                };
+            }
+
             return {
                 ...state,
                 items: [...state.items, action.payload],

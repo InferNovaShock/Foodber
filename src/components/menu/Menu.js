@@ -4,7 +4,32 @@ import { connect } from "react-redux";
 import "./style.css";
 
 class Menu extends React.Component {
-    createMenu = (recipes) => {
+    state = {
+        active: true,
+    };
+
+    createSettings = () => {
+        return (
+            <div className="center-x mt-1">
+                <div>
+                    <label for="diet">Diet</label>
+                    <select name="diet" id="diet">
+                        <option value="balanced">Balanced</option>
+                        <option value="high-protein">High Protein</option>
+                        <option value="high-fiber">High Fiber</option>
+                        <option value="low-fat">Low Fat</option>
+                        <option value="low-carb">Low Carb</option>
+                        <option value="low-sodium">Low Sodium</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="checkbox" />
+                </div>
+            </div>
+        );
+    };
+
+    createMatches = (recipes) => {
         return (
             <div className="match-recipes-list">
                 {recipes.map((recipe, key) => (
@@ -24,9 +49,26 @@ class Menu extends React.Component {
         );
     };
 
+    matchesClick = () => {
+        this.setState({
+            active: true,
+        });
+    };
+
+    settingsClick = () => {
+        this.setState({
+            active: false,
+        });
+    };
+
     render = () => {
+        const { active } = this.state;
         const { recipes } = this.props;
-        const recipesMenu = recipes.length > 0 ? this.createMenu(recipes) : "";
+
+        const currentScreen = active
+            ? this.createMatches(recipes)
+            : this.createSettings();
+        const activeButton = active ? ["active", ""] : ["", "active"];
 
         return (
             <div className="menu">
@@ -34,10 +76,20 @@ class Menu extends React.Component {
                     <h1>Foodber</h1>
                 </div>
                 <div className="menu-navbar">
-                    <button className="menu-button">Matches</button>
-                    <button className="menu-button">Settings</button>
+                    <button
+                        className={`menu-button ${activeButton[0]}`}
+                        onClick={this.matchesClick}
+                    >
+                        Matches
+                    </button>
+                    <button
+                        className={`menu-button ${activeButton[1]}`}
+                        onClick={this.settingsClick}
+                    >
+                        Settings
+                    </button>
                 </div>
-                {recipesMenu}
+                {currentScreen}
             </div>
         );
     };
