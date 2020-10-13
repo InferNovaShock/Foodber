@@ -6,24 +6,42 @@ import "./style.css";
 class Menu extends React.Component {
     state = {
         active: true,
+        diet: false,
+    };
+
+    openDropDown = (event) => {
+        const currentDropDownState = this.state[event.target.name];
+        this.setState({ [event.target.name]: !currentDropDownState });
     };
 
     createSettings = () => {
+        const { diet } = this.state;
+        const dietActive = diet ? "" : "hide";
+
         return (
             <div className="center-x mt-1">
-                <div>
-                    <label for="diet">Diet</label>
-                    <select name="diet" id="diet">
-                        <option value="balanced">Balanced</option>
-                        <option value="high-protein">High Protein</option>
-                        <option value="high-fiber">High Fiber</option>
-                        <option value="low-fat">Low Fat</option>
-                        <option value="low-carb">Low Carb</option>
-                        <option value="low-sodium">Low Sodium</option>
-                    </select>
-                </div>
-                <div>
-                    <input type="checkbox" />
+                <div className="p-w-100">
+                    <button
+                        name="diet"
+                        onClick={this.openDropDown}
+                        className="btn drop-down-btn mx-auto"
+                    >
+                        Diet
+                    </button>
+                    <div className={`p-w-100 ${dietActive}`}>
+                        <div className="center-x">
+                            <div className="drop-down-menu">
+                                <button name="balanced">Balanced</button>
+                                <button name="high-protein">
+                                    High Protein
+                                </button>
+                                <button name="high-fiber">High Fiber</button>
+                                <button name="low-fat">Low Fat</button>
+                                <button name="low-carb">Low Carb</button>
+                                <button name="low-sodium">Low Sodium</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
