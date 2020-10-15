@@ -1,50 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import Settings from "../settings/Settings";
 import "./style.css";
 
 class Menu extends React.Component {
     state = {
         active: true,
-        diet: false,
-    };
-
-    openDropDown = (event) => {
-        const currentDropDownState = this.state[event.target.name];
-        this.setState({ [event.target.name]: !currentDropDownState });
     };
 
     createSettings = () => {
-        const { diet } = this.state;
-        const dietActive = diet ? "" : "hide";
+        return <Settings />;
+    };
 
-        return (
-            <div className="center-x mt-1">
-                <div className="p-w-100">
-                    <button
-                        name="diet"
-                        onClick={this.openDropDown}
-                        className="btn drop-down-btn mx-auto"
-                    >
-                        Diet
-                    </button>
-                    <div className={`p-w-100 ${dietActive}`}>
-                        <div className="center-x">
-                            <div className="drop-down-menu">
-                                <button name="balanced">Balanced</button>
-                                <button name="high-protein">
-                                    High Protein
-                                </button>
-                                <button name="high-fiber">High Fiber</button>
-                                <button name="low-fat">Low Fat</button>
-                                <button name="low-carb">Low Carb</button>
-                                <button name="low-sodium">Low Sodium</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
+    matchesClick = () => {
+        this.setState({
+            active: true,
+        });
+    };
+
+    settingsClick = () => {
+        this.setState({
+            active: false,
+        });
     };
 
     createMatches = (recipes) => {
@@ -65,18 +43,6 @@ class Menu extends React.Component {
                 ))}
             </div>
         );
-    };
-
-    matchesClick = () => {
-        this.setState({
-            active: true,
-        });
-    };
-
-    settingsClick = () => {
-        this.setState({
-            active: false,
-        });
     };
 
     render = () => {

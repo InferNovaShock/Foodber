@@ -30,7 +30,7 @@ class FoodCard extends React.Component {
         const { index, updateRecipeCollection, recipeCollection } = this.props;
 
         if (recipeCollection.length <= 0) {
-            getRequest(0)
+            getRequest("diet=high-protein", 0)
                 .then(({ data }) => {
                     updateRecipeCollection(data.hits);
                     this.setState({
@@ -47,6 +47,38 @@ class FoodCard extends React.Component {
                 onScreenImage: this.getImage(index + 1, "image-overlay"),
                 offScreenImage: this.getImage(index, "image-overlay"),
             });
+        }
+    };
+
+    UNSAFE_componentWillReceiveProps = (props) => {
+        const {
+            preferences,
+            updateIndex,
+            updateRecipeCollection,
+            index,
+        } = this.props;
+        const newPreferences = props.preferences;
+
+        const preferenceString = Object.values(preferences).join("&");
+        const newPreferenceString = Object.values(newPreferences).join("&");
+        if (
+            newPreferenceString.length > 0 &&
+            preferenceString !== newPreferenceString
+        ) {
+            console.log(newPreferenceString);
+            getRequest(`${newPreferenceString}`, 0)
+                .then(({ data }) => {
+                    updateRecipeCollection(data.hits);
+                    updateIndex(0);
+                    this.setState({
+                        onScreenImage: this.getImage(
+                            index + 1,
+                            "image-overlay"
+                        ),
+                        offScreenImage: this.getImage(index, "image-overlay"),
+                    });
+                })
+                .catch((error) => console.log(error));
         }
     };
 
@@ -93,14 +125,17 @@ class FoodCard extends React.Component {
         const { finished } = this.state;
         const {
             index,
+            preferences,
             updateIndex,
-            updateRecipeCollection,
             recipeCollection,
+            updateRecipeCollection,
         } = this.props;
+
         if (finished && index < recipeCollection.length) {
             if (index !== 0 && index % 5 === 0) {
+                const preferenceString = Object.values(preferences).join("&");
                 const copyRecipeCollection = [...recipeCollection];
-                getRequest(index + 6)
+                getRequest(preferenceString, index + 6)
                     .then(({ data }) => {
                         updateRecipeCollection([
                             ...copyRecipeCollection.splice(
@@ -177,6 +212,7 @@ class FoodCard extends React.Component {
 const mapStateToProps = (state) => ({
     index: state.recipes.index,
     recipeCollection: state.recipes.recipeCollection,
+    preferences: state.recipes.preferences,
 });
 
 export default connect(mapStateToProps, {

@@ -4,3 +4,19 @@ export const API_STRING = `https://api.edamam.com/search?app_id=${APP_ID}&app_ke
 export const PAGE_JUMP = 10;
 export const BACKLOAD_NEW_RECIPES = 8;
 export const SET_OFF_ANIMATION_DURATION = 100;
+
+export const DIET = [
+    "diet=balanced",
+    "diet=high-protein",
+    "diet=low-fat",
+    "diet=low-carb",
+];
+
+export const HEALTH = [
+    "health=vegan",
+    "health=vegetarian",
+    "health=sugar-conscious",
+    "health=peanut-free",
+    "health=tree-nut-free",
+    "health=alcohol-free",
+];

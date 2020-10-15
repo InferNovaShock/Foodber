@@ -1,15 +1,17 @@
 import {
     ADD_RECIPE,
-    REMOVE_RECIPE,
     OPEN_RECIPE,
-    UPDATE_CURRENT_INDEX,
+    REMOVE_RECIPE,
     UPDATE_COLLECTION,
+    UPDATE_PREFERENCES,
+    UPDATE_CURRENT_INDEX,
 } from "../actions/Types";
 
 const initalState = {
     items: [],
     recipeCollection: [],
-    item: "",
+    preferences: {},
+    item: {},
     index: 0,
 };
 
@@ -19,6 +21,15 @@ export default (state = initalState, action) => {
             return {
                 ...state,
                 index: action.payload,
+            };
+
+        case UPDATE_PREFERENCES:
+            return {
+                ...state,
+                preferences: {
+                    ...state.preferences,
+                    ...action.payload,
+                },
             };
         case UPDATE_COLLECTION:
             return {
