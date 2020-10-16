@@ -19,7 +19,6 @@ class Settings extends React.Component {
     state = {
         meal: false,
         dish: false,
-        cuisine: false,
     };
 
     openDropDown = (event) => {
@@ -38,11 +37,9 @@ class Settings extends React.Component {
     };
 
     render = () => {
-        const { meal, dish, cuisine } = this.state;
+        const { meal, dish } = this.state;
         const mealActive = meal ? "" : "hide";
         const dishActive = dish ? "" : "hide";
-        const cuisineActive = cuisine ? "" : "hide";
-
         return (
             <div>
                 <div className="mt-1">

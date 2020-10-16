@@ -34,6 +34,7 @@ class Menu extends React.Component {
                         to={`/${recipe.label
                             .replaceAll(" ", "-")
                             .toLowerCase()}`}
+                        className="recipe-btn"
                     >
                         <div className="match-recipes">
                             <img className="avatar" src={recipe.image} />

@@ -107,3 +107,10 @@ span[icon="flash_on"] {
     transform: rotate(10deg);
     color: #9b59b6;
 }
+
+@media only screen and (max-width: 460px) {
+    .image-overlay {
+        width: 300px;
+        height: 405px;
+    }
+}

@@ -159,7 +159,7 @@ class FoodCard extends React.Component {
         const { onScreenImage, offScreenImage } = this.state;
         return (
             <div className="mt-1">
-                <div className="images">
+                <div className="images center-x">
                     {onScreenImage}
                     {offScreenImage}
                 </div>

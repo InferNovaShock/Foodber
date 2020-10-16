@@ -1,4 +1,5 @@
 /* #e17055 */
+
 :root {
     font-size: 16px;
 }
@@ -11,12 +12,6 @@
 body {
     background-color: #f5f7fa;
     font-family: "Roboto", sans-serif;
-    margin-left: 20rem;
-    overflow: hidden;
-}
-
-.food-card {
-    height: 400px;
 }
 
 .menu {
@@ -25,8 +20,12 @@ body {
     display: none;
     position: fixed;
     left: 0;
-    width: 20rem;
+    width: 100vw;
     height: 100vh;
+}
+
+.nav-bar {
+    display: block;
 }
 
 .avatar {
@@ -36,6 +35,11 @@ body {
     margin-left: 1rem;
     margin-right: 1rem;
     box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+.recipe-btn {
+    text-decoration: none;
+    color: black;
 }
 
 .p-w-100 {
@@ -138,13 +142,24 @@ body {
 }
 
 @media only screen and (min-width: 1140px) {
-    .foodber {
-        justify-content: space-between;
-        box-shadow: -15px 0px 80px -15px rgba(0, 0, 0, 0.75);
+    body {
+        margin-left: 20rem;
+        overflow: hidden;
+    }
+
+    .nav-bar {
+        display: none;
     }
 
     .menu {
         display: block;
+        width: 20rem;
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    :root {
+        font-size: 12px;
     }
 }
 

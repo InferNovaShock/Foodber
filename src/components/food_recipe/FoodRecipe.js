@@ -115,7 +115,7 @@ class FoodRecipe extends React.Component {
                     <button className="send-btn" onClick={this.unmatchRecipe}>
                         UNMATCH
                     </button>
-                    <Link to="/" className="exit-btn">
+                    <Link to="/" className="recipe-btn">
                         <span className="material-icons">close</span>
                     </Link>
                 </div>

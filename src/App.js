@@ -6,6 +6,7 @@ import FoodCard from "./components/food_card/FoodCard";
 import FoodRecipe from "./components/food_recipe/FoodRecipe";
 import PageNotFound from "./components/page_not_found/PageNotFound";
 import Menu from "./components/menu/Menu";
+import NavBar from "./components/navbar/NavBar";
 import "./components/css/style.css";
 
 const App = () => {
@@ -18,7 +19,8 @@ const App = () => {
                     </div>
                     <Switch>
                         <Route exact path="/">
-                            <div className="h-100 center-x">
+                            <NavBar />
+                            <div className="h-100 center-x center-y">
                                 <FoodCard />
                             </div>
                         </Route>
@@ -28,6 +30,7 @@ const App = () => {
                             component={PageNotFound}
                         />
                         <Route path="/:url" component={FoodRecipe} />
+                        <Route exact path="/menu" component={Menu} />
                     </Switch>
                 </div>
             </Router>
