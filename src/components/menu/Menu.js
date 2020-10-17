@@ -50,6 +50,8 @@ class Menu extends React.Component {
         const { active } = this.state;
         const { recipes } = this.props;
 
+        const width = window.innerWidth;
+
         const currentScreen = active
             ? this.createMatches(recipes)
             : this.createSettings();
@@ -58,7 +60,13 @@ class Menu extends React.Component {
         return (
             <div className="menu">
                 <div className="menu-logo">
-                    <h1>Foodber</h1>
+                    {width < 1140 ? (
+                        <Link to="/" className="link-logo">
+                            <h1>Foodber</h1>
+                        </Link>
+                    ) : (
+                        <h1>Foodber</h1>
+                    )}
                 </div>
                 <div className="menu-navbar">
                     <button

@@ -17,7 +17,7 @@ body {
 .menu {
     z-index: 1;
     background-color: #fff;
-    display: none;
+    display: block;
     position: fixed;
     left: 0;
     width: 100vw;
@@ -40,6 +40,11 @@ body {
 .recipe-btn {
     text-decoration: none;
     color: black;
+}
+
+.link-logo {
+    text-decoration: none;
+    color: white;
 }
 
 .p-w-100 {
@@ -141,14 +146,14 @@ body {
     margin-right: 1rem;
 }
 
+.show {
+    display: block;
+}
+
 @media only screen and (min-width: 1140px) {
     body {
         margin-left: 20rem;
         overflow: hidden;
-    }
-
-    .nav-bar {
-        display: none;
     }
 
     .menu {
@@ -160,6 +165,10 @@ body {
 @media only screen and (max-width: 460px) {
     :root {
         font-size: 12px;
+    }
+
+    .row {
+        flex-direction: column;
     }
 }
 

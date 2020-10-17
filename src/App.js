@@ -10,27 +10,26 @@ import NavBar from "./components/navbar/NavBar";
 import "./components/css/style.css";
 
 const App = () => {
+    const width = window.innerWidth;
+
     return (
         <Provider store={Store}>
             <Router>
                 <div>
-                    <div className="menu">
-                        <Menu />
-                    </div>
                     <Switch>
                         <Route exact path="/">
-                            <NavBar />
+                            {width < 1140 ? "" : <Menu />}
+                            {width < 1140 ? <NavBar /> : ""}
                             <div className="h-100 center-x center-y">
                                 <FoodCard />
                             </div>
                         </Route>
-                        <Route
-                            exact
-                            path="/page-not-found"
-                            component={PageNotFound}
-                        />
-                        <Route path="/:url" component={FoodRecipe} />
-                        <Route exact path="/menu" component={Menu} />
+                        {width < 1140 ? (
+                            <Route exact path="/menu" component={Menu} />
+                        ) : (
+                            ""
+                        )}
+                        <Route exact path="/:url" component={FoodRecipe} />
                     </Switch>
                 </div>
             </Router>

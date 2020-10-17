@@ -104,6 +104,31 @@ class FoodRecipe extends React.Component {
         const { history } = this.props;
         const { recipe, messages } = this.state;
 
+        const width = window.innerWidth;
+        const enableMessaging =
+            width < 1140 ? (
+                ""
+            ) : (
+                <div>
+                    <div className="message-box">{messages}</div>
+                    <div className="message-box-input">
+                        <textarea
+                            name="message"
+                            type="text"
+                            placeholder={"Type in a message"}
+                            className="p-h-10"
+                            maxLength="5000"
+                            onChange={this.messageChange}
+                            onKeyDown={this.keyClick}
+                            value={this.state.message}
+                        ></textarea>
+                        <button className="send-btn" onClick={this.sendMessage}>
+                            SEND
+                        </button>
+                    </div>
+                </div>
+            );
+
         if (typeof recipe === "undefined") {
             history.push("/");
         }
@@ -119,22 +144,7 @@ class FoodRecipe extends React.Component {
                         <span className="material-icons">close</span>
                     </Link>
                 </div>
-                <div className="message-box">{messages}</div>
-                <div className="message-box-input">
-                    <textarea
-                        name="message"
-                        type="text"
-                        placeholder={"Type in a message"}
-                        className="p-h-10"
-                        maxLength="5000"
-                        onChange={this.messageChange}
-                        onKeyDown={this.keyClick}
-                        value={this.state.message}
-                    ></textarea>
-                    <button className="send-btn" onClick={this.sendMessage}>
-                        SEND
-                    </button>
-                </div>
+                {enableMessaging}
             </div>
         );
     };
