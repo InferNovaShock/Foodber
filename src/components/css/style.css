@@ -152,13 +152,15 @@ body {
 
 @media only screen and (min-width: 1140px) {
     body {
-        margin-left: 20rem;
         overflow: hidden;
     }
 
     .menu {
-        display: block;
         width: 20rem;
+    }
+
+    .ml-20 {
+        margin-left: 20rem;
     }
 }
 

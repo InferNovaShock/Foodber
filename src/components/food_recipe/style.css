@@ -111,12 +111,3 @@
 .send-btn:active {
     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.27);
 }
-
-@media only screen and (min-width: 1140px) {
-    .food-recipe-container {
-        max-width: 325px;
-        margin-top: 0px;
-        margin-left: 0px;
-        margin-right: 0px;
-    }
-}

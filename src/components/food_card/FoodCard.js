@@ -13,6 +13,7 @@ const image = (imageSrc, classes, transitionEnd) => {
     return (
         <img
             src={imageSrc}
+            alt={imageSrc}
             className={classes}
             onTransitionEnd={transitionEnd}
         />

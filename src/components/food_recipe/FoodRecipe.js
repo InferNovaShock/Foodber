@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { removeRecipe } from "../redux/actions/RecipeAction";
+import ResponsiveSize from "../responsive_size/ResponsiveSize";
 import "./style.css";
 
 const ingredientList = (recipe) => (
@@ -13,6 +14,7 @@ const ingredientList = (recipe) => (
                         <img
                             className="ingredient-img"
                             src={ingredient.image}
+                            alt={ingredient.text}
                         />
                     </div>
                     <div className="ml-1 mr-1">
@@ -104,12 +106,22 @@ class FoodRecipe extends React.Component {
         const { history } = this.props;
         const { recipe, messages } = this.state;
 
-        const width = window.innerWidth;
-        const enableMessaging =
-            width < 1140 ? (
-                ""
-            ) : (
-                <div>
+        if (typeof recipe === "undefined") {
+            history.push("/");
+        }
+
+        return (
+            <div className="p-h-100 message-container">
+                <div className="message-box-nav">
+                    <h4>{recipe.label}</h4>
+                    <button className="send-btn" onClick={this.unmatchRecipe}>
+                        UNMATCH
+                    </button>
+                    <Link to="/" className="recipe-btn">
+                        <span className="material-icons">close</span>
+                    </Link>
+                </div>
+                <ResponsiveSize lg>
                     <div className="message-box">{messages}</div>
                     <div className="message-box-input">
                         <textarea
@@ -126,25 +138,7 @@ class FoodRecipe extends React.Component {
                             SEND
                         </button>
                     </div>
-                </div>
-            );
-
-        if (typeof recipe === "undefined") {
-            history.push("/");
-        }
-
-        return (
-            <div className="p-h-100 message-container">
-                <div className="message-box-nav">
-                    <h4>{recipe.label}</h4>
-                    <button className="send-btn" onClick={this.unmatchRecipe}>
-                        UNMATCH
-                    </button>
-                    <Link to="/" className="recipe-btn">
-                        <span className="material-icons">close</span>
-                    </Link>
-                </div>
-                {enableMessaging}
+                </ResponsiveSize>
             </div>
         );
     };

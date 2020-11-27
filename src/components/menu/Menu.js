@@ -2,15 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Settings from "../settings/Settings";
+import ResponsiveSize from "../responsive_size/ResponsiveSize";
 import "./style.css";
 
 class Menu extends React.Component {
     state = {
         active: true,
-    };
-
-    createSettings = () => {
-        return <Settings />;
     };
 
     matchesClick = () => {
@@ -25,19 +22,27 @@ class Menu extends React.Component {
         });
     };
 
+    createSettings = () => {
+        return <Settings />;
+    };
+
     createMatches = (recipes) => {
         return (
             <div className="match-recipes-list">
                 {recipes.map((recipe, key) => (
                     <Link
                         key={key}
-                        to={`/${recipe.label
+                        to={`/food-recipe/${recipe.label
                             .replaceAll(" ", "-")
                             .toLowerCase()}`}
                         className="recipe-btn"
                     >
                         <div className="match-recipes">
-                            <img className="avatar" src={recipe.image} />
+                            <img
+                                className="avatar"
+                                src={recipe.image}
+                                alt={recipe.label}
+                            />
                             <h3>{recipe.label}</h3>
                         </div>
                     </Link>
@@ -50,8 +55,6 @@ class Menu extends React.Component {
         const { active } = this.state;
         const { recipes } = this.props;
 
-        const width = window.innerWidth;
-
         const currentScreen = active
             ? this.createMatches(recipes)
             : this.createSettings();
@@ -60,13 +63,14 @@ class Menu extends React.Component {
         return (
             <div className="menu">
                 <div className="menu-logo">
-                    {width < 1140 ? (
+                    <ResponsiveSize xs sm md>
                         <Link to="/" className="link-logo">
                             <h1>Foodber</h1>
                         </Link>
-                    ) : (
+                    </ResponsiveSize>
+                    <ResponsiveSize lg>
                         <h1>Foodber</h1>
-                    )}
+                    </ResponsiveSize>
                 </div>
                 <div className="menu-navbar">
                     <button
