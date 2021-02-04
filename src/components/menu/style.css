@@ -1,120 +1,124 @@
 .menu-logo {
-    color: #fff;
-    font-family: "Dancing Script", cursive;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 4rem;
-    box-shadow: 0 1px 8px 0 rgba(0, 17, 25, 0.27);
-    background: linear-gradient(-45deg, #e17055, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    animation: gradient 60s infinite;
-    animation-direction: alternate;
+	color: #fff;
+	font-family: 'Dancing Script', cursive;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 4rem;
+	box-shadow: 0 1px 8px 0 rgba(0, 17, 25, 0.27);
+	background: linear-gradient(-45deg, #e17055, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 60s infinite;
+	animation-direction: alternate;
 }
 
 .menu-navbar {
-    display: flex;
-    margin-top: 2rem;
-    justify-content: space-around;
+	display: flex;
+	margin-top: 2rem;
+	justify-content: space-around;
 }
 
 .match-recipes-list {
-    margin-top: 1rem;
-    height: 80%;
-    overflow: auto;
-    overflow-y: scroll;
-    scrollbar-width: none;
+	margin-top: 1rem;
+	height: 80%;
+	overflow: auto;
+	overflow-y: scroll;
+	scrollbar-width: none;
 }
 
 .match-recipes {
-    transition: box-shadow 1s ease-in-out;
-    display: flex;
-    align-items: center;
-    height: 4rem;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-    cursor: pointer;
+	transition: box-shadow 1s ease-in-out;
+	display: flex;
+	align-items: center;
+	height: 4rem;
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+	cursor: pointer;
 }
 
 .match-recipes:hover {
-    transition: box-shadow 0.5s ease-in-out;
-    box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.1);
+	transition: box-shadow 0.5s ease-in-out;
+	box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.1);
 }
 
 .match-recipes > h3 {
-    font-weight: 400;
+	font-weight: 400;
 }
 
 .menu-button {
-    transition: border-bottom 0.5s ease-in-out;
-    font-size: 1rem;
-    font-weight: bold;
-    padding-bottom: 0.2rem;
-    background-color: transparent;
-    border: 2px solid transparent;
-    color: black;
-    cursor: pointer;
+	transition: border-bottom 0.5s ease-in-out;
+	font-size: 1rem;
+	font-weight: bold;
+	padding-bottom: 0.2rem;
+	background-color: transparent;
+	border: 2px solid transparent;
+	color: black;
+	cursor: pointer;
 }
 
 .menu-button:hover {
-    transition: border-bottom 0.5s ease-in-out;
-    border-bottom: 2px solid #e17055;
+	transition: border-bottom 0.5s ease-in-out;
+	border-bottom: 2px solid #e17055;
 }
 
 .active {
-    border-bottom: 2px solid #e17055;
+	border-bottom: 2px solid #e17055;
 }
 
 .hide {
-    display: none;
+	display: none;
 }
 
 /* settings */
 
 .drop-down-menu {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.5);
-    background: linear-gradient(-45deg, #e17055, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    animation: gradient 60s infinite;
-    animation-direction: alternate;
+	display: flex;
+	flex-direction: column;
+	padding-top: 0.5rem;
+	border-radius: 1rem;
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.5);
+	background: linear-gradient(-45deg, #e17055, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	width: 50%;
+	margin-top: 1rem;
+	margin-left: auto;
+	margin-right: auto;
+	animation: gradient 60s infinite;
+	animation-direction: alternate;
 }
 
 .drop-down-menu button {
-    display: block;
-    transition: 1s color ease-in-out;
-    border: 1px solid transparent;
-    background-color: transparent;
-    color: white;
-    margin-bottom: 0.5rem;
-    cursor: pointer;
+	display: block;
+	transition: 1s color ease-in-out;
+	border: 1px solid transparent;
+	background-color: transparent;
+	color: white;
+	margin-bottom: 0.5rem;
+	cursor: pointer;
 }
 
 .drop-down-menu button:hover {
-    transition: 1s color ease-in-out;
+	transition: 1s color ease-in-out;
 }
 
 .drop-down-btn {
-    display: block;
-    width: 90%;
+	display: block;
+	width: 90%;
 }
 
 .btn {
-    height: 2rem;
-    border: 1px solid transparent;
-    border-radius: 4rem;
-    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.5);
-    background: linear-gradient(-45deg, #e17055, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    color: white;
-    cursor: pointer;
-    animation: gradient 60s infinite;
-    animation-direction: alternate;
+	height: 2rem;
+	border: 1px solid transparent;
+	border-radius: 4rem;
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.5);
+	background: linear-gradient(-45deg, #e17055, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	color: white;
+	cursor: pointer;
+	animation: gradient 60s infinite;
+	animation-direction: alternate;
 }
 
 .btn:active {
-    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.27);
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.27);
 }

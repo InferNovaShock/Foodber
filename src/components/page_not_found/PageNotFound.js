@@ -1,8 +1,11 @@
-import React from "react";
-import "./style.css";
+import React from 'react';
+import './style.css';
 
-export default class PageNotFound extends React.Component {
-    render = () => {
-        return <div>This page does not exist !</div>;
-    };
-}
+const PageNotFound = () => (
+	<div>
+		<h1>Page Not Found</h1>
+		<h2>How could this happen ?</h2>
+	</div>
+);
+
+export default PageNotFound;
