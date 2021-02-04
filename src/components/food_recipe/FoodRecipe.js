@@ -1,46 +1,77 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { removeRecipe } from '../redux/actions/RecipeAction';
-import './style.css';
+import ResponsiveSize from '../responsive_size/ResponsiveSize';
+import './food-recipe.css';
 
-const ingredientList = (recipe) => (
-	<div>
-		{recipe.ingredients.map((ingredient, key) => (
-			<div key={key}>
-				<div className='mt-1 ingredient-content'>
-					<div className='ml-1'>
-						<img
-							className='ingredient-img'
-							src={ingredient.image}
-							alt={ingredient.text}
-						/>
-					</div>
-					<div className='ml-1 mr-1'>
-						<h3 className='mt-1'>{ingredient.text}</h3>
-						<h4 className='mt-05'>
-							{Math.round(ingredient.weight) + 'g'}
-						</h4>
-					</div>
-				</div>
-			</div>
-		))}
+const Message = (props) => (
+	<div className='mt-1'>
+		<h6>You</h6>
+		<span className='message'>{props.message}</span>
 	</div>
 );
 
-const addMessage = (message) => {
+const TextArea = () => {
+	const [message, setMessage] = useState('');
+	const [messages, setMessages] = useState([]);
 	return (
-		<div className='mt-1'>
-			<h6>You</h6>
-			<span className='message'>{message}</span>
+		<ResponsiveSize lg>
+			<div className='message-box'>{messages}</div>
+			<div className='message-box-input'>
+				<textarea
+					name='message'
+					type='text'
+					placeholder={'Type in a message'}
+					className='p-h-100'
+					maxLength='5000'
+					onKeyDown={(event) => {
+						setMessage(message + event.key);
+					}}
+					value={message}
+				></textarea>
+				<button
+					className='send-btn'
+					onClick={() => {
+						setMessages([
+							...messages,
+							<Message message={message} />,
+						]);
+						setMessage('');
+					}}
+				>
+					SEND
+				</button>
+			</div>
+		</ResponsiveSize>
+	);
+};
+
+const Recipe = (props) => {
+	const { recipe } = props;
+	return (
+		<div className='message-box-nav'>
+			<h4>{recipe.label}</h4>
+			<button className='send-btn' onClick={() => console.log('clicked')}>
+				UNMATCH
+			</button>
+			<Link to='/' className='recipe-btn'>
+				<span className='material-icons'>close</span>
+			</Link>
 		</div>
 	);
 };
 
-const FoodRecipe = () => <div>Lorem Ipsum</div>;
-
+const FoodRecipe = (props) => {
+	return (
+		<div className='p-h-100 message-container'>
+			<Recipe recipe={props.recipe} />
+			<TextArea />
+		</div>
+	);
+};
 const mapStateToProps = (state) => ({
-	recipes: state.recipes.items,
+	recipe: state.recipes.item,
 });
 
 export default connect(mapStateToProps, { removeRecipe })(FoodRecipe);

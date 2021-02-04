@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { updatePreferences } from '../redux/actions/RecipeAction';
 import { HEALTH, DIET } from '../Constant';
+import './settings.css';
 
 const DropDown = (props) => {
 	const { navigation } = props;

@@ -1,0 +1,51 @@
+.drop-down-menu {
+	display: flex;
+	flex-direction: column;
+	padding-top: 0.5rem;
+	border-radius: 1rem;
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.5);
+	background: linear-gradient(-45deg, #e17055, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	width: 50%;
+	margin-top: 1rem;
+	margin-left: auto;
+	margin-right: auto;
+	animation: gradient 60s infinite;
+	animation-direction: alternate;
+}
+
+.drop-down-menu button {
+	display: block;
+	transition: 1s color ease-in-out;
+	border: 1px solid transparent;
+	background-color: transparent;
+	color: white;
+	margin-bottom: 0.5rem;
+	cursor: pointer;
+}
+
+.drop-down-menu button:hover {
+	transition: 1s color ease-in-out;
+}
+
+.drop-down-btn {
+	display: block;
+	width: 90%;
+}
+
+.btn {
+	height: 2rem;
+	border: 1px solid transparent;
+	border-radius: 4rem;
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.5);
+	background: linear-gradient(-45deg, #e17055, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	color: white;
+	cursor: pointer;
+	animation: gradient 60s infinite;
+	animation-direction: alternate;
+}
+
+.btn:active {
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.27);
+}

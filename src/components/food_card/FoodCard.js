@@ -5,7 +5,7 @@ import {
 	updateIndex,
 	updateRecipeCollection,
 } from '../redux/actions/RecipeAction';
-import './style.css';
+import './food-card.css';
 
 const Dummy = (props) => (
 	<button>
@@ -16,11 +16,26 @@ const Dummy = (props) => (
 );
 
 const Swipe = (props) => {
-	const { direction, icon, swipeDirection, disabled } = props;
+	const {
+		icon,
+		index,
+		disabled,
+		addRecipe,
+		direction,
+		updateIndex,
+		swipeDirection,
+		recipeCollection,
+	} = props;
 	return (
 		<button
 			name={direction}
-			onClick={() => swipeDirection(direction)}
+			onClick={() => {
+				if (direction === 'right') {
+					addRecipe(recipeCollection[index]);
+				}
+				updateIndex((index + 1) % 5);
+				swipeDirection(direction);
+			}}
 			disabled={disabled}
 		>
 			<span name={direction} icon={icon} className='material-icons icons'>
@@ -31,35 +46,44 @@ const Swipe = (props) => {
 };
 
 const FoodCard = (props) => {
-	const { index, recipeCollection } = props;
+	const [current, setCurrent] = useState(0);
 	const [direction, setDirection] = useState('');
-
+	const { index, recipeCollection, updateIndex, addRecipe } = props;
 	return (
-		<div className='mt-1'>
-			<div className='images center-x'>
+		<div id='food-card'>
+			<div id='images-holder'>
 				<img
-					src={recipeCollection[index]}
-					className={`image-overlay-1 ${direction}`}
-					onTransitionEnd={() => setDirection('')}
+					src={recipeCollection[current].image}
+					id='front'
+					className={direction}
+					onTransitionEnd={() => {
+						setDirection('');
+						setCurrent(index);
+					}}
 				/>
-				<img
-					src={recipeCollection[index]}
-					className='image-overlay-2'
-				/>
+				<img src={recipeCollection[index].image} id='back' />
 			</div>
-			<div className='mt-1 icons-nav'>
+			<div className='icons-nav'>
 				<Dummy icon='replay' />
 				<Swipe
-					direction='left'
 					icon='close'
+					index={index}
+					direction='left'
+					addRecipe={addRecipe}
+					updateIndex={updateIndex}
 					swipeDirection={setDirection}
+					recipeCollection={recipeCollection}
 					disabled={direction ? true : false}
 				/>
 				<Dummy icon='star' />
 				<Swipe
-					direction='right'
 					icon='favorite'
+					index={index}
+					direction='right'
+					addRecipe={addRecipe}
+					updateIndex={updateIndex}
 					swipeDirection={setDirection}
+					recipeCollection={recipeCollection}
 					disabled={direction ? true : false}
 				/>
 				<Dummy icon='flash_on' />

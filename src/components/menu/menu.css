@@ -1,0 +1,47 @@
+#menu {
+	z-index: 1;
+	width: 20rem;
+	display: block;
+	background-color: #fff;
+}
+
+#menu-logo {
+	height: 4rem;
+	display: flex;
+	color: #fff;
+	align-items: center;
+	justify-content: center;
+	background-size: 400% 400%;
+	animation-direction: alternate;
+	animation: gradient 60s infinite;
+	font-family: 'Dancing Script', cursive;
+	box-shadow: 0 1px 8px 0 rgba(0, 17, 25, 0.27);
+	background: linear-gradient(-45deg, #e17055, #e73c7e, #23a6d5, #23d5ab);
+}
+
+#menu-navbar {
+	display: flex;
+	margin-top: 2rem;
+	justify-content: space-around;
+}
+
+#link-logo {
+	color: white;
+	text-decoration: none;
+}
+
+.menu-button {
+	transition: border-bottom 0.5s ease-in-out;
+	font-size: 1rem;
+	font-weight: bold;
+	padding-bottom: 0.2rem;
+	background-color: transparent;
+	border: 2px solid transparent;
+	color: black;
+	cursor: pointer;
+}
+
+.menu-button:hover {
+	transition: border-bottom 0.5s ease-in-out;
+	border-bottom: 2px solid #e17055;
+}

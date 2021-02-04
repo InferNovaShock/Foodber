@@ -1,0 +1,113 @@
+.food-recipe-container {
+	width: 90%;
+	height: 100%;
+	overflow: auto;
+	margin-top: 1rem;
+	margin-left: auto;
+	margin-right: auto;
+	overflow-y: scroll;
+}
+
+.food-recipe-name {
+	padding-bottom: 1rem;
+	border-bottom: 1px solid #b2bec3;
+}
+
+.food-recipe-img {
+	width: 100%;
+	height: 405px;
+}
+
+.ingredient-content {
+	margin-left: 1rem;
+	margin-right: 1rem;
+	border-radius: 2rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	background-color: white;
+	box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.1);
+}
+
+.ingredient-content:last-child {
+	margin-bottom: 1rem;
+}
+
+.ingredient-img {
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+}
+
+.message-container {
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.message-box-nav {
+	height: 4rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.message-box {
+	overflow: auto;
+	height: calc(100% - 8rem);
+}
+
+.message-box-input {
+	height: 4rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.message-box-input textarea {
+	flex: 1;
+	height: 80%;
+	resize: none;
+	overflow: hidden;
+	background-color: transparent;
+	border: 1px solid transparent;
+	font-family: 'Roboto', sans-serif;
+}
+
+.message {
+	height: 1rem;
+	color: white;
+	cursor: pointer;
+	padding: 0.5rem;
+	font-weight: 600;
+	border-radius: 2rem;
+	display: inline-block;
+	background-size: 400% 400%;
+	background: linear-gradient(
+		-45deg,
+		rgba(225, 112, 85, 0.5),
+		rgba(231, 60, 126, 0.5),
+		rgba(35, 166, 213, 0.5),
+		rgba(35, 213, 171, 0.5)
+	);
+	animation-direction: alternate;
+	animation: gradient 120s infinite;
+}
+
+.send-btn {
+	width: 6rem;
+	height: 70%;
+	border: 1px solid transparent;
+	border-radius: 4rem;
+	color: white;
+	font-weight: 600;
+	cursor: pointer;
+	background-size: 400% 400%;
+	animation-direction: alternate;
+	animation: gradient 60s infinite;
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.5);
+	background: linear-gradient(-45deg, #e17055, #e73c7e, #23a6d5, #23d5ab);
+}
+
+.send-btn:active {
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.27);
+}
