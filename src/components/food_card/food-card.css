@@ -1,5 +1,8 @@
 #food-card {
-	flex: 2;
+	flex: 3;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 #images-holder {
@@ -28,11 +31,11 @@
 }
 
 .left {
-	transform: translate(-1000px, 0px) rotate(20deg);
+	transform: translate(calc(-100% - 40rem), 0px) rotate(20deg);
 }
 
 .right {
-	transform: translate(1000px, 0px) rotate(20deg);
+	transform: translate(calc(100% + 40rem), 0px) rotate(20deg);
 }
 
 .left,
