@@ -10,33 +10,29 @@ import ResponsiveSize from './components/responsive_size/ResponsiveSize';
 import './components/css/style.css';
 
 const App = () => {
-	return (
-		<Provider store={Store}>
-			<Router>
-				<Switch>
-					<Route
-						exact
-						path='/food-recipe/:url'
-						component={FoodRecipe}
-					/>
-					<Route exact path='/'>
-						{/* <ResponsiveSize xs sm md>
-							<NavBar />
-						</ResponsiveSize>
-						<ResponsiveSize lg>
-							<Menu />
-						</ResponsiveSize>
-                        */}
-						<Menu />
-						<FoodCard />
-					</Route>
-					<ResponsiveSize xs sm md>
-						<Route exact path='/menu' component={Menu} />
-					</ResponsiveSize>
-				</Switch>
-			</Router>
-		</Provider>
-	);
+    return (
+        <Provider store={Store}>
+            <Router>
+                <Switch>
+                    <Route
+                        exact
+                        path='/food-recipe/:url'
+                        component={FoodRecipe}
+                    />
+                    <Route exact path='/'>
+                        <Menu />
+                        <ResponsiveSize lg>
+                            <FoodCard />
+                        </ResponsiveSize>
+                    </Route>
+                    <ResponsiveSize xs sm md>
+                        <NavBar />
+                        <Route exact path='/food-card' component={FoodCard} />
+                    </ResponsiveSize>
+                </Switch>
+            </Router>
+        </Provider>
+    );
 };
 
 export default App;

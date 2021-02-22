@@ -1,85 +1,56 @@
-import React, { Fragment, useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { removeRecipe } from '../redux/actions/RecipeAction';
 import './food-recipe.css';
 
-const Recipe = (props) => {
-	const { recipe } = props;
-	return (
-		<div id='message-box-nav'>
-			<h4>{recipe.label}</h4>
-			<button className='send-btn' onClick={() => console.log('clicked')}>
-				UNMATCH
-			</button>
-			<Link to='/' className='recipe-btn'>
-				<span className='material-icons'>close</span>
-			</Link>
-		</div>
-	);
-};
-
-const Message = (props) => (
-	<div className='mt-1'>
-		<h6>You</h6>
-		<span className='message'>{props.message}</span>
-	</div>
+const RecipeNav = () => (
+    <div id='message-box-nav'>
+        <Link to='/' className='recipe-btn'>
+            <span className='material-icons'>close</span>
+        </Link>
+    </div>
 );
 
-const TextArea = () => {
-	const [message, setMessage] = useState('');
-	const [messages, setMessages] = useState([]);
-	return (
-		<Fragment>
-			<div className='message-box'>{messages}</div>
-			<div className='message-box-input'>
-				<input
-					name='message'
-					type='text'
-					placeholder={'Type in a message'}
-					className='p-h-100'
-					maxLength='5000'
-					onKeyDown={(event) => {
-						if (event.key === 'Enter') {
-							setMessages([
-								...messages,
-								<Message message={message} />,
-							]);
-							setMessage('');
-							event.preventDefault();
-							return;
-						}
-						setMessage(message + event.key);
-					}}
-					value={message}
-				/>
-				<button
-					className='send-btn'
-					onClick={() => {
-						setMessages([
-							...messages,
-							<Message message={message} />,
-						]);
-						setMessage('');
-					}}
-				>
-					SEND
-				</button>
-			</div>
-		</Fragment>
-	);
-};
+const Ingredients = ({ ingredients }) => (
+    <ul>
+        {ingredients.map((ingredient) => (
+            <li>{ingredient}</li>
+        ))}
+    </ul>
+);
 
-const FoodRecipe = (props) => {
-	return (
-		<div id='food-recipe'>
-			<Recipe recipe={props.recipe} />
-			<TextArea />
-		</div>
-	);
-};
+const Method = ({ method }) => (
+    <ul>
+        <li>
+            <h2>Method</h2>
+        </li>
+        {method.map((step, index) => (
+            <li>
+                <h4>Step {index + 1}</h4>
+                <p>{step}</p>
+            </li>
+        ))}
+    </ul>
+);
+
+const Recipe = ({ recipe: { image, label, ingredients, method } }) => (
+    <div>
+        <img id='showcase' src={image} alt={label} />
+        <h1 id='title'>{label}</h1>
+        <Ingredients ingredients={ingredients} />
+        <Method method={method} />
+    </div>
+);
+
+const FoodRecipe = ({ recipe }) => (
+    <div id='food-recipe'>
+        <RecipeNav />
+        <Recipe recipe={recipe} />
+    </div>
+);
+
 const mapStateToProps = (state) => ({
-	recipe: state.recipes.item,
+    recipe: state.recipes.item,
 });
 
-export default connect(mapStateToProps, { removeRecipe })(FoodRecipe);
+export default connect(mapStateToProps, null)(FoodRecipe);
