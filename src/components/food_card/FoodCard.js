@@ -7,7 +7,7 @@ import {
 } from '../redux/actions/RecipeAction';
 import './food-card.css';
 
-const Dummy = (icon) => (
+const Dummy = ({ icon }) => (
     <button>
         <span icon={icon} className='material-icons icons'>
             {icon}

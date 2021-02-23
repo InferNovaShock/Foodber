@@ -9,30 +9,24 @@ import NavBar from './components/navbar/NavBar';
 import ResponsiveSize from './components/responsive_size/ResponsiveSize';
 import './components/css/style.css';
 
-const App = () => {
-    return (
-        <Provider store={Store}>
-            <Router>
-                <Switch>
-                    <Route
-                        exact
-                        path='/food-recipe/:url'
-                        component={FoodRecipe}
-                    />
-                    <Route exact path='/'>
-                        <Menu />
-                        <ResponsiveSize lg>
-                            <FoodCard />
-                        </ResponsiveSize>
-                    </Route>
-                    <ResponsiveSize xs sm md>
-                        <NavBar />
-                        <Route exact path='/food-card' component={FoodCard} />
+const App = () => (
+    <Provider store={Store}>
+        <Router>
+            <Switch>
+                <Route exact path='/food-recipe/:url' component={FoodRecipe} />
+                <Route exact path='/'>
+                    <Menu />
+                    <ResponsiveSize lg>
+                        <FoodCard />
                     </ResponsiveSize>
-                </Switch>
-            </Router>
-        </Provider>
-    );
-};
+                </Route>
+                <ResponsiveSize xs sm md>
+                    <NavBar />
+                    <Route exact path='/food-card' component={FoodCard} />
+                </ResponsiveSize>
+            </Switch>
+        </Router>
+    </Provider>
+);
 
 export default App;
